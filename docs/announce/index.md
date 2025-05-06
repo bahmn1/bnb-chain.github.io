@@ -2,39 +2,18 @@
 # Announcement
 
 <div class="doc-announce">
-    <a href="./haber-bsc">
+    <a href="./altai-gnfd/">
         <div>
-            <div class="announce-title">BSC Harber Hardfork</div>
-            <div class="announce-desc">Enable EIP7212 to support precompiled secp256r1 curve on BSC</div>
+            <div class="announce-title">Altai Upgrade of Greenfield </div>
+            <div class="announce-desc">A hotfix release to address Metamask compatibility issue</div>
         </div>
-        <span class="announce-date">2023 MAY 24</span>
+        <span class="announce-date">2024 Sep 23</span>
     </a>
-    <a href="./haber-opbnb">
+    <a href="./bohr-bsc/">
         <div>
-            <div class="announce-title">opBNB Harber Hardfork</div>
-            <div class="announce-desc">Enable EIP7212 to support precompiled secp256r1 curve on opBNB</div>
+            <div class="announce-title">Bohr Upgrade of BSC (Mainnet)</div>
+            <div class="announce-desc">Introduce 4 BEPs on BSC Mainnet</div>
         </div>
-        <span class="announce-date">2023 MAY 24</span>
-    </a>
-    <a href="./second-sunset-bc-testnet/">
-        <div>
-            <div class="announce-title">BC Second Sunset Hardfork (Testnet) </div>
-            <div class="announce-desc">Enable Second Sunset Hardfork on BC testnet</div>
-        </div>
-        <span class="announce-date">2023 June 21</span>
-    </a>
-    <a href="./veld-greenfield/">
-        <div>
-            <div class="announce-title">Greenfield Veld Hardfork (Testnet) </div>
-            <div class="announce-desc">Bugfixing on Greenfield Testnet</div>
-        </div>
-        <span class="announce-date">2024 June 25</span>
-    </a>
-    <a href="./veld-greenfield/">
-        <div>
-            <div class="announce-title">Greenfield Veld Hardfork (Mainnet) </div>
-            <div class="announce-desc">Bugfixing on Greenfield Mainnet</div>
-        </div>
-        <span class="announce-date">2024 July 08</span>
+        <span class="announce-date">2024 Sep 26</span>
     </a>
 </div>
