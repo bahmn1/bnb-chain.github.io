@@ -1,3 +1,6 @@
+---
+title: Run BSC Validator - BNB Smart Chain
+---
 
 # Run BSC Validator
 
@@ -5,19 +8,17 @@
 
 ### Mainnet
 
-- VPS running recent versions of Mac OS X or Linux.
-- **IMPORTANT** 3T GB of free disk space, solid-state drive(SSD), gp3, 8k IOPS, 500 MB/S throughput, read latency <1ms (if start with snap sync, it will need NVMe SSD).
-- 16 cores of CPU and 64 gigabytes of memory (RAM).
-- Suggest m5zn.3xlarge or r7iz.4xlarge instance type on AWS, or c2-standard-16 on Google cloud.
-- A broadband Internet connection with upload/download speeds of 5 megabyte per second
+- Instance Spec: Suggest r7a.4xlarge instance type on AWS.
+- Memory: 64 GB
+- Disk: **IMPORTANT** 4T GB, solid-state drive(SSD), gp3, 8k IOPS, 500 MB/S throughput, read latency <1ms (if start with snap sync, it will need NVMe SSD).
+- Network Bandwidth: > 10 Gbps
 
 ### Testnet
 
-- CPU: 4core, Intel(R) Xeon(R) Platinum 8175M CPU @ 2.50GHz
+- CPU: "AMD Gen 3 or newer" or "Intel Ice Lake or newer"
 - Memory: 16 GB
-- Disk: ~1.5 TB
-- Network Bandwidth: Upto 25 Gbps
-- EBS Bandwidth: Upto 9.5 Gbps
+- Disk: 1.5 TB, solid-state drive(SSD), gp3, 8k IOPS, 250 MB/S throughput.
+- Network Bandwidth: > 2.5 Gbps
 
 ## Setup Validator Node
 
@@ -123,4 +124,41 @@ miner.stop()
 To resume validating,
 ```bash
 miner.start()
+```
+
+## Some Tips & Tools
+### 1.Run backup node
+Backup node could help when your primary validator node encounters issues due to a variety of potential reasons, ensuring the continuity and reliability of your participation in the network.
+
+### 2.Check your node’s stability
+There is a javascript in BSC repo to dump the slash status of each validator.
+```
+cd <bsc>/cmd/jsutils
+# 1.To dump the slashes of the lates block:
+node getslashcount.js --Rpc https://bsc-mainnet.nodereal.io/v1/454e504917db4f82b756bd0cf6317dce
+
+# 2.You may also specify the block number:
+node getslashcount.js --Rpc https://bsc-mainnet.nodereal.io/v1/454e504917db4f82b756bd0cf6317dce --Num 39938351
+```
+If your validator operates smoothly, you should expect minimal or even no penalties, known as "slashes," on a daily basis. Generally speaking, if your validator incurs more than three slashes within a single day, it would be prudent to investigate the cause for this anomaly.
+
+### 3.About maintenance mode
+Should your validator incur 50 slashes, it will automatically transition into maintenance mode. It is imperative to promptly diagnose and rectify any issues with your node to prevent further penalties. Failure to do so may result in your node being placed in a more restrictive state, often referred to as "jail."
+
+Upon successfully restoring your node's functionality, it is crucial to promptly [exit maintenance mode](https://github.com/bnb-chain/bsc/blob/master/docs/parlia/README-BEP-127.md#exit-maintenance) to resume normal operations and avoid any unnecessary downtime or penalties.
+```
+// note: replace "0x75B851a27D7101438F45fce31816501193239A83" with your validator's consensus address.
+geth attach geth.ipc
+web3.eth.sendTransaction({   from: "0x75B851a27D7101438F45fce31816501193239A83",   to: "0x0000000000000000000000000000000000001000",   data: "0x04c4fec6"})
+```
+
+### 4.Filter out peers by regex pattern
+This functionality was introduced with version [1.4.6](https://github.com/bnb-chain/bsc/releases/tag/v1.4.6), primarily designed to identify and exclude peers that may present operational challenges, thereby preventing connections with them. For further details, please refer to this Pull Request: [PR#2404](https://github.com/bnb-chain/bsc/pull/2404).
+
+Generally, this feature is not necessary for regular operation. However, in the event that a release contains critical bugs and an immediate upgrade of all nodes to a stable version is not feasible, this feature can be employed to disconnect from peers running the problematic versions. This serves as a temporary solution to mitigate the impact of the bugs until a comprehensive upgrade can be performed.
+
+For example, if v1.4.9 has known issues, we wanna disconnect nodes of this version, you may update your `config.toml` and restart:
+```
+[Node.P2P]
+PeerFilterPatterns = ["Geth/v1.4.9.*"]
 ```

@@ -1,19 +1,20 @@
-{% extends "base.html" %}
+n{% extends "base.html" %}
 
+{#
 {% block announce %}
 <div>
-    BNB Beacon Chain is sunsetting. <a href="https://www.bnbchain.org/en/bnb-chain-fusion" target="_blank">Check for
-    more details</a>
+    announcement goes here
 </div>
 {% endblock %}
+#}
 
 {% block htmltitle %}
     {% if page.meta and page.meta.title %}
-        <title>{{ page.meta.title }} - BNB Chain Documentation</title>
+        <title>{{ page.meta.title }}</title>
     {% elif page.title and not page.is_homepage %}
-        <title>{{ page.title | striptags }} - BNB Chain Documentation</title>
+        <title>{{ page.title | striptags }}</title>
     {% else %}
-        <title>BNB Chain: An Ecosystem of Blockchains | BNB Chain Documentation</title>
+        <title> BNB Chain Documentation</title>
     {% endif %}
 {% endblock %}
 
